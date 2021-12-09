@@ -1,0 +1,47 @@
+name: Make a release
+
+on:
+  workflow_dispatch:
+    inputs:
+
+      branch:
+        description: 'Build branch to use'
+        required: true
+        default: 'nightly'
+
+jobs:
+
+  merge:
+    uses: armbian/scripts/.github/workflows/merge-from-branch.yml@master
+
+    with:
+      branch: 'nightly'
+
+    secrets:  
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+
+  armhf:
+    needs: [ merge ]
+    uses: armbian/scripts/.github/workflows/build-rootfs-cache.yml@master
+
+    with:
+      rootfsarch: 'bananapi'
+      runner: 'small'
+      branch: ${{ github.event.inputs.branch }}
+
+    secrets:  
+      GPG_KEY1: ${{ secrets.GPG_KEY1 }}
+      GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+      SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
+
+ jobsend:
+    name: finish
+    needs: [armhf,aarch64,amd64]
+    runs-on: [ubuntu-latest]
+    if: ${{ github.repository_owner == 'Armbian' }}
+    steps:
+      - run: |
+          echo "End"
