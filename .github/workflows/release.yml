@@ -37,9 +37,9 @@ jobs:
       GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
       SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
 
- jobsend:
+  jobsend:
     name: finish
-    needs: [armhf,aarch64,amd64]
+    needs: [armhf]
     runs-on: [ubuntu-latest]
     if: ${{ github.repository_owner == 'Armbian' }}
     steps:
