@@ -12,6 +12,7 @@ jobs:
  
       variant: 'targets-cli-beta.conf'
       runner: 'ubuntu-latest'
+    secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
       GPG_KEY2: ${{ secrets.GPG_KEY2 }}
@@ -24,6 +25,7 @@ jobs:
     with:
       variant: 'targets-desktop-beta.conf'
       runner: 'ubuntu-latest'      
+    secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
       GPG_KEY2: ${{ secrets.GPG_KEY2 }}
