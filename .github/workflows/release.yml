@@ -11,17 +11,34 @@ on:
 
 jobs:
 
-  #merge:
-  #  uses: armbian/scripts/.github/workflows/merge-from-branch.yml@master
+  merge:
+    uses: armbian/scripts/.github/workflows/merge-from-branch.yml@master
 
-   # with:
-   #   branch: 'nightly'
+    with:
+      branch: 'nightly'
 
-    #secrets:  
-     # GPG_KEY2: ${{ secrets.GPG_KEY2 }}
-      #GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+    secrets:  
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
 
-  armhf:
+  cli:
+    #needs: [ merge ]
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
+
+    with:
+      rootfsarch: 'bananapi'
+      runner: 'small'
+      branch: ${{ github.event.inputs.branch }}
+
+    secrets:  
+      GPG_KEY1: ${{ secrets.GPG_KEY1 }}
+      GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+      SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
+
+
+  desktop:
     #needs: [ merge ]
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
@@ -39,7 +56,7 @@ jobs:
 
   jobsend:
     name: finish
-    needs: [armhf]
+    needs: [cli]
     runs-on: [ubuntu-latest]
     if: ${{ github.repository_owner == 'Armbian' }}
     steps:
