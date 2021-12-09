@@ -15,8 +15,8 @@ jobs:
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
-      rootfsarch: 'bananapi'
-      runner: 'small'
+      rootfsarch: 'rock64'
+      runner: 'big'
       branch: ${{ github.event.inputs.branch }}
 
     secrets:  
