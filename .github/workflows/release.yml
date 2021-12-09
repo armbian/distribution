@@ -11,18 +11,7 @@ on:
 
 jobs:
 
-  merge:
-    uses: armbian/scripts/.github/workflows/merge-from-branch.yml@master
-
-    with:
-      branch: 'nightly'
-
-    secrets:  
-      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
-      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
-
   cli:
-    #needs: [ merge ]
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
@@ -39,7 +28,6 @@ jobs:
 
 
   desktop:
-    #needs: [ merge ]
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
@@ -56,7 +44,7 @@ jobs:
 
   jobsend:
     name: finish
-    needs: [cli]
+    needs: [cli,desktop]
     runs-on: [ubuntu-latest]
     if: ${{ github.repository_owner == 'Armbian' }}
     steps:
