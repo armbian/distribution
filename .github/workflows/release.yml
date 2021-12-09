@@ -23,7 +23,7 @@ jobs:
 
   armhf:
     #needs: [ merge ]
-    uses: armbian/scripts/.github/workflows/build-with-docker-yml@master
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
       rootfsarch: 'bananapi'
