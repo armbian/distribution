@@ -11,18 +11,18 @@ on:
 
 jobs:
 
-  merge:
-    uses: armbian/scripts/.github/workflows/merge-from-branch.yml@master
+  #merge:
+  #  uses: armbian/scripts/.github/workflows/merge-from-branch.yml@master
 
-    with:
-      branch: 'nightly'
+   # with:
+   #   branch: 'nightly'
 
-    secrets:  
-      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
-      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+    #secrets:  
+     # GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      #GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
 
   armhf:
-    needs: [ merge ]
+    #needs: [ merge ]
     uses: armbian/scripts/.github/workflows/build-rootfs-cache.yml@master
 
     with:
