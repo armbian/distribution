@@ -7,7 +7,7 @@ jobs:
 
   clean:
 
-    name: "Merge master into nightly"
+    name: "Delete previous tags"
     runs-on: [ubuntu-latest]
     steps:
       - name: Purge
