@@ -20,6 +20,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   cli:
+    needs: clean
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
@@ -34,6 +35,7 @@ jobs:
       SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
 
   desktop:
+    needs: clean
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
