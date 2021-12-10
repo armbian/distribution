@@ -11,7 +11,7 @@ jobs:
     with:
  
       variant: 'targets-cli-beta.conf'
-      runner: "self-hosted, Linux, small"
+      runner: 'small'
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
@@ -24,7 +24,7 @@ jobs:
 
     with:
       variant: 'targets-desktop-beta.conf'
-      runner: "self-hosted, Linux, big"
+      runner: 'big'
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
