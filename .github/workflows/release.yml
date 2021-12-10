@@ -40,7 +40,7 @@ jobs:
 
     with:
       variant: 'targets-desktop-beta.conf'
-      runner: "self-hosted big"
+      runner: "self-hosted,big"
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
