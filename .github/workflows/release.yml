@@ -78,6 +78,8 @@ jobs:
     with:
       variant: 'desktop:beta'
       runner: "big"
+      part: 1
+      
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
