@@ -73,7 +73,7 @@ jobs:
 
   desktop:
     needs: clean
-    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
 
     with:
       variant: 'desktop:beta'
