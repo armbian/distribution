@@ -20,11 +20,11 @@ jobs:
 
   clean:
 
-    name: "Delete previous tags"
-    if: github.event.inputs.purge == 'true'
+    name: "Delete previous tags"    
     runs-on: [ubuntu-latest]
     steps:
       - name: Purge
+        if: github.event.inputs.purge == 'true'
         uses: dev-drprasad/delete-older-releases@v0.2.0
         with:
           repo: armbian/distribution
