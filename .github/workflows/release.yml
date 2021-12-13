@@ -35,7 +35,7 @@ jobs:
 
   cli1:
     needs: clean
-    uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
  
@@ -54,7 +54,7 @@ jobs:
       
   cli2:  
     needs: clean
-    uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
  
@@ -72,7 +72,7 @@ jobs:
 
   cli3:  
     needs: clean
-    uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
  
@@ -90,7 +90,7 @@ jobs:
 
   desktop1:
     needs: clean
-    uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
       variant: 'desktop:${{ github.event.inputs.choice }}'
@@ -107,7 +107,7 @@ jobs:
 
   desktop2:
     needs: clean
-    uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
       variant: 'desktop:${{ github.event.inputs.choice }}'
@@ -124,7 +124,7 @@ jobs:
 
   desktop3:
     needs: clean
-    uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
       variant: 'desktop:${{ github.event.inputs.choice }}'
