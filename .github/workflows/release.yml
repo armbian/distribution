@@ -1,7 +1,17 @@
-name: Nightly builds
+name: Ndevelopment
 
 on:
   workflow_dispatch:
+    inputs:
+      boolean:
+        type: boolean
+        description: Upload to NAS
+      choice:
+        type: choice
+        description: Release type
+        options:
+        - beta
+        - stable
 
 jobs:
 
@@ -25,7 +35,7 @@ jobs:
 
     with:
  
-      variant: 'cli:beta'
+      variant: 'cli:${{ github.event.inputs.choice }}'
       runner: "ubuntu-latest"
       part: 1
 
@@ -43,7 +53,7 @@ jobs:
 
     with:
  
-      variant: 'cli:beta'
+      variant: 'cli:${{ github.event.inputs.choice }}'
       runner: "ubuntu-latest"
       part: 2
 
@@ -60,7 +70,7 @@ jobs:
 
     with:
  
-      variant: 'cli:beta'
+      variant: 'cli:${{ github.event.inputs.choice }}'
       runner: "ubuntu-latest"
       part: 3
 
@@ -76,7 +86,7 @@ jobs:
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
 
     with:
-      variant: 'desktop:beta'
+      variant: 'desktop:${{ github.event.inputs.choice }}'
       runner: "big"
       part: 1
       
