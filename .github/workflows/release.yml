@@ -92,7 +92,7 @@ jobs:
       variant: 'desktop:${{ github.event.inputs.choice }}'
       runner: "big"
       part: 1
-      uploading: ${{ github.event.inputs.uploading }}
+      uploading: ${{ inputs.uploading }}
       
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
