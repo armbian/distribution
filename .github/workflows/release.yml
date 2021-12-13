@@ -18,6 +18,7 @@ jobs:
           keep_latest: 0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NEED: "true"
 
   cli:
     needs: clean
@@ -33,6 +34,25 @@ jobs:
       GPG_KEY2: ${{ secrets.GPG_KEY2 }}
       GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
       SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
+      
+      
+      
+  cli2:  
+    needs: clean
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
+    if: env.NEED == 'true'
+
+    with:
+ 
+      variant: 'targets-cli-beta.conf'
+      runner: "ubuntu-latest"
+    secrets:
+      GPG_KEY1: ${{ secrets.GPG_KEY1 }}
+      GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+      SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
+  
 
   desktop:
     needs: clean
