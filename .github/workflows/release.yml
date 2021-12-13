@@ -42,7 +42,7 @@ jobs:
   cli2:  
     needs: clean
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
-    if: env.NEED == 'true'
+    if:  ${{ env.NEED }} == 'true'
 
     with:
  
