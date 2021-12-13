@@ -20,7 +20,7 @@ jobs:
 
   clean:
 
-    name: "Delete previous tags"    
+    name: Purge tags
     runs-on: [ubuntu-latest]
     steps:
       - name: Purge
