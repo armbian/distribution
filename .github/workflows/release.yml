@@ -45,7 +45,7 @@ jobs:
  
       variant: 'targets-cli-beta.conf'
       runner: "ubuntu-latest"
-      part: "2"
+      part: 2
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
@@ -62,7 +62,7 @@ jobs:
  
       variant: 'targets-cli-beta.conf'
       runner: "ubuntu-latest"
-      part: "3"
+      part: 3
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
