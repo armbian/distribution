@@ -40,7 +40,7 @@ jobs:
     with:
  
       variant: 'cli:${{ github.event.inputs.choice }}'
-      runner: "small"
+      runner: "big,small"
       part: 1
       uploading: ${{ github.event.inputs.uploading }}
 
