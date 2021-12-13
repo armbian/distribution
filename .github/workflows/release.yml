@@ -18,7 +18,9 @@ jobs:
           keep_latest: 0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NEED: "true"
+      - name: Set env NEED
+        run: |
+          echo "NEED=true" >> "$GITHUB_ENV"
 
   cli:
     needs: clean
