@@ -3,6 +3,9 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
+      purge:
+        type: boolean
+        description: Purge current release
       uploading:
         type: boolean
         description: Upload to Github
@@ -18,6 +21,7 @@ jobs:
   clean:
 
     name: "Delete previous tags"
+    if:  github.event.inputs.purge == true
     runs-on: [ubuntu-latest]
     steps:
       - name: Purge
