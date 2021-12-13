@@ -84,7 +84,41 @@ jobs:
       GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
       SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
 
-  desktop:
+  desktop1:
+    needs: clean
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
+
+    with:
+      variant: 'desktop:${{ github.event.inputs.choice }}'
+      runner: "big"
+      part: 1
+      uploading: ${{ github.event.inputs.uploading }}
+      
+    secrets:
+      GPG_KEY1: ${{ secrets.GPG_KEY1 }}
+      GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+      SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
+
+  desktop2:
+    needs: clean
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
+
+    with:
+      variant: 'desktop:${{ github.event.inputs.choice }}'
+      runner: "big"
+      part: 2
+      uploading: ${{ github.event.inputs.uploading }}
+      
+    secrets:
+      GPG_KEY1: ${{ secrets.GPG_KEY1 }}
+      GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+      SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
+
+  desktop3:
     needs: clean
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@development
 
