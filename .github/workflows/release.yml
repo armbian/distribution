@@ -3,7 +3,7 @@ name: Release
 on:
   workflow_dispatch:
     inputs:
-      boolean:
+      uploading:
         type: boolean
         description: Upload to Github
       choice:
@@ -92,7 +92,7 @@ jobs:
       variant: 'desktop:${{ github.event.inputs.choice }}'
       runner: "big"
       part: 1
-      uploading: ${{ github.event.inputs.boolean }}
+      uploading: ${{ github.event.inputs.uploading }}
       
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
