@@ -1,16 +1,30 @@
-name: Nightly builds
+name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      purge:
+        type: boolean
+        description: Purge current release
+      uploading:
+        type: boolean
+        description: Upload to Github
+      choice:
+        type: choice
+        description: Release type
+        options:
+        - beta
+        - stable
 
 jobs:
 
   clean:
 
-    name: "Delete previous tags"
+    name: Purge tags
     runs-on: [ubuntu-latest]
     steps:
       - name: Purge
+        if: github.event.inputs.purge == 'true'
         uses: dev-drprasad/delete-older-releases@v0.2.0
         with:
           repo: armbian/distribution
@@ -19,14 +33,36 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  cli:
+  cli1:
     needs: clean
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
  
-      variant: 'targets-cli-beta.conf'
+      variant: 'cli:${{ github.event.inputs.choice }}'
       runner: "ubuntu-latest"
+      part: 1
+      uploading: ${{ github.event.inputs.uploading }}
+
+    secrets:
+      GPG_KEY1: ${{ secrets.GPG_KEY1 }}
+      GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+      SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
+      
+      
+  cli2:  
+    needs: clean
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
+
+    with:
+ 
+      variant: 'cli:${{ github.event.inputs.choice }}'
+      runner: "ubuntu-latest"
+      part: 2
+      uploading: ${{ github.event.inputs.uploading }}
+
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
@@ -34,13 +70,68 @@ jobs:
       GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
       SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
 
-  desktop:
+  cli3:  
     needs: clean
     uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
 
     with:
-      variant: 'targets-desktop-beta.conf'
+ 
+      variant: 'cli:${{ github.event.inputs.choice }}'
+      runner: "ubuntu-latest"
+      part: 3
+      uploading: ${{ github.event.inputs.uploading }}
+
+    secrets:
+      GPG_KEY1: ${{ secrets.GPG_KEY1 }}
+      GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+      SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
+
+  desktop1:
+    needs: clean
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
+
+    with:
+      variant: 'desktop:${{ github.event.inputs.choice }}'
       runner: "big"
+      part: 1
+      uploading: ${{ github.event.inputs.uploading }}
+      
+    secrets:
+      GPG_KEY1: ${{ secrets.GPG_KEY1 }}
+      GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+      SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
+
+  desktop2:
+    needs: clean
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
+
+    with:
+      variant: 'desktop:${{ github.event.inputs.choice }}'
+      runner: "big"
+      part: 2
+      uploading: ${{ github.event.inputs.uploading }}
+      
+    secrets:
+      GPG_KEY1: ${{ secrets.GPG_KEY1 }}
+      GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
+      GPG_KEY2: ${{ secrets.GPG_KEY2 }}
+      GPG_PASSPHRASE2: ${{ secrets.GPG_PASSPHRASE2 }}
+      SCRIPTS_ACCESS_TOKEN: ${{ secrets.SCRIPTS_ACCESS_TOKEN }}
+
+  desktop3:
+    needs: clean
+    uses: armbian/scripts/.github/workflows/build-with-docker.yml@master
+
+    with:
+      variant: 'desktop:${{ github.event.inputs.choice }}'
+      runner: "big"
+      part: 3
+      uploading: ${{ github.event.inputs.uploading }}
+      
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
