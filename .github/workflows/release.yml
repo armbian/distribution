@@ -125,7 +125,7 @@ jobs:
     with:
       variant: 'desktop:${{ github.event.inputs.choice }}'
       runner: "big"
-      part: 1
+      part: 3
       uploading: ${{ github.event.inputs.uploading }}
       
     secrets:
