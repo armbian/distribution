@@ -40,7 +40,7 @@ jobs:
     with:
  
       variant: 'cli:${{ github.event.inputs.choice }}'
-      runner: "big,small"
+      runner: "ubuntu-latest"
       part: 1
       uploading: ${{ github.event.inputs.uploading }}
 
@@ -77,7 +77,7 @@ jobs:
     with:
  
       variant: 'cli:${{ github.event.inputs.choice }}'
-      runner: "ubuntu-latest"
+      runner: "small"      
       part: 3
       uploading: ${{ github.event.inputs.uploading }}
 
