@@ -38,7 +38,7 @@ jobs:
       variant: 'cli:${{ github.event.inputs.choice }}'
       runner: "ubuntu-latest"
       part: 1
-      upload: ${{ github.event.inputs.boolean }}"
+      upload: "${{ github.event.inputs.boolean }}"
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
@@ -57,7 +57,7 @@ jobs:
       variant: 'cli:${{ github.event.inputs.choice }}'
       runner: "ubuntu-latest"
       part: 2
-      upload: ${{ github.event.inputs.boolean }}"
+      upload: "${{ github.event.inputs.boolean }}"
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
@@ -75,7 +75,7 @@ jobs:
       variant: 'cli:${{ github.event.inputs.choice }}'
       runner: "ubuntu-latest"
       part: 3
-      upload: ${{ github.event.inputs.boolean }}"
+      upload: "${{ github.event.inputs.boolean }}"
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
@@ -92,7 +92,7 @@ jobs:
       variant: 'desktop:${{ github.event.inputs.choice }}'
       runner: "big"
       part: 1
-      upload: ${{ github.event.inputs.boolean }}"
+      upload: "${{ github.event.inputs.boolean }}"
       
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
