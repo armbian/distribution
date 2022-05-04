@@ -1,0 +1,42 @@
+name: Maintain Runners
+
+on:
+  workflow_dispatch:
+
+jobs:
+
+  Prepare:
+
+    name: Prepare
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'armbian' }}
+    outputs:
+      matrix: ${{steps.list_dirs.outputs.matrix}}
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Prepare matrix
+        id: list_dirs
+        run: |
+          MATRIX="seq -w 01 100"
+          [[ -s changes ]] || unset MATRIX
+          echo ::set-output name=matrix::$(for x in $(eval $MATRIX); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
+  Purge:
+  
+    needs: [ Prepare ]
+    runs-on: [ubuntu-latest]
+    if: ${{ needs.Prepare.outputs.matrix != '[]' && needs.Prepare.outputs.matrix != '' }}
+    timeout-minutes: 480
+    strategy:
+      fail-fast: false
+      matrix: 
+        node: ${{fromJson(needs.Prepare.outputs.matrix)}}
+    steps:
+   
+      - name: Cleaning
+        run: |
+        echo "Yes"
