@@ -22,8 +22,7 @@ jobs:
       - name: Prepare matrix
         id: list_dirs
         run: |
-          MATRIX="seq -w 01 100"
-          echo ::set-output name=matrix::$(for x in $(eval $MATRIX); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
+          echo ::set-output name=matrix::$(for x in $(ls -1 images); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
   Purge:
   
     needs: [ Prepare ]
