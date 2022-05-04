@@ -96,3 +96,8 @@ jobs:
           BSPFREEZE="yes" \
           REPOSITORY_INSTALL="u-boot,kernel,armbian-config,armbian-bsp,armbian-firmware" \
           EXPERT="yes"
+
+      - name: Sign
+        run: |
+
+          echo ${{ secrets.GPG_PASSPHRASE1 }} | gpg --passphrase-fd 0 --armor --detach-sign --pinentry-mode loopback --batch --yes output/images/*/*/*.img.xz
