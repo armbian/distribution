@@ -56,15 +56,15 @@ jobs:
         run: |
           sudo docker pull ghcr.io/armbian/build:$(cat build/VERSION  | cut -d"." -f1-2)"-$(dpkg --print-architecture)"
    
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v3
-        with:
+#      - name: Import GPG key
+#        uses: crazy-max/ghaction-import-gpg@v3
+#        with:
 
-          gpg-private-key: ${{ secrets.GPG_KEY1 }}
-          passphrase: ${{ secrets.GPG_PASSPHRASE1 }}
-          workdir: scripts
-          git-user-signingkey: true
-          git-commit-gpgsign: true
+#          gpg-private-key: ${{ secrets.GPG_KEY1 }}
+#          passphrase: ${{ secrets.GPG_PASSPHRASE1 }}
+#          workdir: scripts
+#          git-user-signingkey: true
+#          git-commit-gpgsign: true
    
       - name: Preparing
         run: |
@@ -99,4 +99,4 @@ jobs:
       - name: Sign
         run: |
 
-          echo ${{ secrets.GPG_PASSPHRASE1 }} | gpg --passphrase-fd 0 --armor --detach-sign --pinentry-mode loopback --batch --yes output/images/*/*/*.img.xz
+ #         echo ${{ secrets.GPG_PASSPHRASE1 }} | gpg --passphrase-fd 0 --armor --detach-sign --pinentry-mode loopback --batch --yes output/images/*/*/*.img.xz
