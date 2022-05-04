@@ -9,7 +9,7 @@ jobs:
 
     name: Prepare
     runs-on: ubuntu-latest
-    if: ${{ github.repository_owner == 'armbian' }}
+    #if: ${{ github.repository_owner == 'armbian' }}
     outputs:
       matrix: ${{steps.list_dirs.outputs.matrix}}
     steps:
