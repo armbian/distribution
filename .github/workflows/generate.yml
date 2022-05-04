@@ -73,13 +73,32 @@ jobs:
           sudo cp scripts/configs/* build/userpatches/
           sudo cp distribution/images/${{ matrix.node }}/customize-image.sh build/userpatches/customize-image.sh
           sudo cp scripts/VERSION build/VERSION
-          sudo touch .ignore_changes
-          sudo sed -i "s/-it --rm/-i --rm/" build/userpatches/config-docker.conf
 
       - name: Build
         run: |
 
           cd build
+
+          sudo touch .ignore_changes
+          # framework init
+          ./compile.sh \
+          JUST_INIT="yes" \
+          OFFLINE_WORK="yes" \
+          BRANCH=current \
+          RELEASE=focal \
+          BUILD_MINIMAL=yes \
+          BUILD_DESKTOP=no \
+          KERNEL_ONLY=no \
+          KERNEL_CONFIGURE=no \
+          BOARD="zeropi" \
+          NO_HOST_RELEASE_CHECK="yes"
+         
+          # change template
+          sudo sed -i "s/^#DOCKER_FLAGS+=(--privileged)/DOCKER_FLAGS+=(--privileged)/" userpatches/config-docker.conf
+          sudo sed -i "s/^VERSION=.*/VERSION=\$(cat \$SRC\/VERSION | cut -d\".\" -f1-2)\"-\$(echo \${BASE_IMAGE} \| cut -d\":\" -f2)-\$(dpkg --print-architecture)\"/" userpatches/config-docker.conf
+          sudo sed -i 's/armbian:/ghcr.io\/armbian\/build:/g' userpatches/config-docker.conf 
+          sudo sed -i "s/ -it/ -i/" userpatches/config-docker.conf
+
           ./compile.sh docker \
           BETA="no" \
           RELEASE="focal" \
