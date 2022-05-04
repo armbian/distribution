@@ -35,6 +35,28 @@ jobs:
         node: ${{fromJson(needs.Prepare.outputs.matrix)}}
     steps:
    
-      - name: Cleaning
+      - name: Checkout build framework
+        uses: actions/checkout@v3
+        with:
+          repository: armbian/build
+          path: build
+
+      - name: Checkout support scripts
+        uses: actions/checkout@v3
+        with:
+          repository: armbian/scripts
+          path: scripts
+   
+      - name: Checkout software distribution
+        uses: actions/checkout@v3
+        with:
+          path: distribution
+   
+      - name: Pull Docker image
         run: |
-          echo "Yes"
+          sudo docker image rm $(sudo docker images | grep -v $(cat build/VERSION | sed 's/trunk.*/trunk/')"-$(dpkg --print-architecture)" | awk 'NR>1 {print $3}') 2> /dev/null || true 
+          sudo docker pull ghcr.io/armbian/build:$(cat build/VERSION  | cut -d"." -f1-2)"-$(dpkg --print-architecture)"
+   
+      - name: Preparing
+        run: |
+          sudo cp scripts/VERSION build/VERSION
