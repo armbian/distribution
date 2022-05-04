@@ -23,7 +23,6 @@ jobs:
         id: list_dirs
         run: |
           MATRIX="seq -w 01 100"
-          [[ -s changes ]] || unset MATRIX
           echo ::set-output name=matrix::$(for x in $(eval $MATRIX); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
   Purge:
   
