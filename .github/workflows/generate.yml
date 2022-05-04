@@ -79,6 +79,7 @@ jobs:
       - name: Build
         run: |
 
+          cd build
           ./compile.sh docker \
           BETA="no" \
           RELEASE="focal" \
