@@ -39,4 +39,4 @@ jobs:
    
       - name: Cleaning
         run: |
-        echo "Yes"
+          echo "Yes"
