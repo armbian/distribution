@@ -57,6 +57,42 @@ jobs:
           sudo docker image rm $(sudo docker images | grep -v $(cat build/VERSION | sed 's/trunk.*/trunk/')"-$(dpkg --print-architecture)" | awk 'NR>1 {print $3}') 2> /dev/null || true 
           sudo docker pull ghcr.io/armbian/build:$(cat build/VERSION  | cut -d"." -f1-2)"-$(dpkg --print-architecture)"
    
+      - name: Import GPG key
+
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          gpg-private-key: ${{ secrets.GPG_KEY1 }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE1 }}
+          workdir: scripts
+          git-user-signingkey: true
+          git-commit-gpgsign: true
+   
       - name: Preparing
         run: |
+
+          mkdir -p build/userpatches          
+          sudo cp scripts/configs/* build/userpatches/
+          sudo cp distribution/images/${{ matrix.node }}/customize-image.sh build/userpatches/customize-image.sh
           sudo cp scripts/VERSION build/VERSION
+          sudo touch .ignore_changes
+          sudo sed -i "s/-it --rm/-i --rm/" build/userpatches/config-docker.conf
+
+      - name: Build
+        run: |
+
+          ./compile.sh docker \
+          BETA="no" \
+          RELEASE="focal" \
+          BUILD_DESKTOP="no" \
+          BUILD_MINIMAL="yes" \
+          KERNEL_ONLY="no" \
+          VENDOR="OpenHab" \
+          KERNEL_CONFIGURE="no" \
+          BOARD="odroidn2" \
+          USE_MAINLINE_GOOGLE_MIRROR="yes" \
+          BRANCH="current" \
+          SKIP_EXTERNAL_TOOLCHAINS="yes" \
+          OFFLINE_WORK="yes" \
+          BSPFREEZE="yes" \
+          REPOSITORY_INSTALL="u-boot,kernel,armbian-config,armbian-bsp,armbian-firmware" \
+          EXPERT="yes"
