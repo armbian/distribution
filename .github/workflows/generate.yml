@@ -54,13 +54,12 @@ jobs:
    
       - name: Pull Docker image
         run: |
-          sudo docker image rm $(sudo docker images | grep -v $(cat build/VERSION | sed 's/trunk.*/trunk/')"-$(dpkg --print-architecture)" | awk 'NR>1 {print $3}') 2> /dev/null || true 
           sudo docker pull ghcr.io/armbian/build:$(cat build/VERSION  | cut -d"." -f1-2)"-$(dpkg --print-architecture)"
    
       - name: Import GPG key
-
         uses: crazy-max/ghaction-import-gpg@v3
         with:
+
           gpg-private-key: ${{ secrets.GPG_KEY1 }}
           passphrase: ${{ secrets.GPG_PASSPHRASE1 }}
           workdir: scripts
