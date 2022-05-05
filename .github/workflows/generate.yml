@@ -95,6 +95,10 @@ jobs:
           sudo cp scripts/VERSION build/VERSION
           sudo docker tag $OLD ghcr.io/armbian/build:$(cat build/VERSION | cut -d"." -f1-2)-$(dpkg --print-architecture)
 
+          BOARD=${{ matrix.board }}
+          APP=${{ matrix.node }}
+          VERSION=$(cat build/VERSION)
+
       - name: Build
         run: |
 
@@ -106,12 +110,12 @@ jobs:
           BUILD_DESKTOP="no" \
           BUILD_MINIMAL="yes" \
           KERNEL_ONLY="no" \
-          VENDOR="Armbian_${{ matrix.node }}" \
+          VENDOR="Armbian_${APP^}" \
           KERNEL_CONFIGURE="no" \
           COMPRESS_OUTPUTIMAGE="xz" \
           FORCE_USE_RAMDISK="yes" \
           FAST_CREATE_IMAGE="yes" \
-          BOARD="odroidn2" \
+          BOARD="${BOARD}" \
           USE_TORRENT="yes" \
           USE_MAINLINE_GOOGLE_MIRROR="yes" \
           BRANCH="current" \
@@ -124,9 +128,9 @@ jobs:
       - name: Shrink the name
         run: |
 
-          cd build/output/images 
-          mv *.xz ${{ matrix.node }}_Armbian_22.05_${{ matrix.board }}.img.xz
-          sha256sum ${{ matrix.node }}_Armbian_22.05_${{ matrix.board }}.img.xz > ${{ matrix.node }}_Armbian_22.05_${{ matrix.board }}.img.xz.sha
+          cd build/output/images
+          mv *.xz "${APP^}"_Armbian_22.05_"${BOARD^}".img.xz
+          sha256sum "${APP^}"_"${VERSION}"_"${BOARD^}".img.xz > "${APP^}"_"${VERSION}"_"${BOARD^}".img.xz.sha
           echo ${{ secrets.GPG_PASSPHRASE1 }} | gpg --passphrase-fd 0 --armor --detach-sign --pinentry-mode loopback --batch --yes *.img.xz
 
       - name: Declare vars
