@@ -125,10 +125,7 @@ jobs:
           REPOSITORY_INSTALL="u-boot,kernel,armbian-config,armbian-bsp,armbian-firmware" \
           EXPERT="yes"
 
-      - name: Shrink the name
-        run: |
-
-          cd build/output/images
+          cd output/images
           mv *.xz "${APP^}"_Armbian_22.05_"${BOARD^}".img.xz
           sha256sum "${APP^}"_"${VERSION}"_"${BOARD^}".img.xz > "${APP^}"_"${VERSION}"_"${BOARD^}".img.xz.sha
           echo ${{ secrets.GPG_PASSPHRASE1 }} | gpg --passphrase-fd 0 --armor --detach-sign --pinentry-mode loopback --batch --yes *.img.xz
