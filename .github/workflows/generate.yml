@@ -95,12 +95,12 @@ jobs:
           sudo cp scripts/VERSION build/VERSION
           sudo docker tag $OLD ghcr.io/armbian/build:$(cat build/VERSION | cut -d"." -f1-2)-$(dpkg --print-architecture)
 
+      - name: Build
+        run: |
+
           BOARD=${{ matrix.board }}
           APP=${{ matrix.node }}
           VERSION=$(cat build/VERSION)
-
-      - name: Build
-        run: |
 
           cd build
          
