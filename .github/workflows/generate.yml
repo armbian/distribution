@@ -121,13 +121,14 @@ jobs:
           REPOSITORY_INSTALL="u-boot,kernel,armbian-config,armbian-bsp,armbian-firmware" \
           EXPERT="yes"
 
-      - name: Sign
+      - name: Shrink the name
         run: |
 
-          for i in output/images/*.xz*
-          do
-             cp "$i" $(echo "$i"| sed -r 's/(OpenHab)(.*)(.img)/\1\3/g')
-          done
+          ls -l output/images/
+#          for i in output/images/*.xz*
+#          do
+#             cp "$i" $(echo "$i"| sed -r 's/(OpenHab)(.*)(.img)/\1\3/g')
+#          done
 
       - name: Sign
         run: |
