@@ -81,7 +81,7 @@ jobs:
           sudo sed -i "s/ -it/ -i/" build/userpatches/config-docker.conf
           OLD="ghcr.io/armbian/build:$(cat build/VERSION  | cut -d"." -f1-2)"-$(dpkg --print-architecture)
           sudo cp scripts/VERSION build/VERSION
-          sudo docker tag $OLD ghcr.io/armbian/build:$(cat build/VERSION)-$(dpkg --print-architecture)
+          sudo docker tag $OLD ghcr.io/armbian/build:$(cat build/VERSION | cut -d"." -f1-2)-$(dpkg --print-architecture)
 
       - name: Build
         run: |
