@@ -68,15 +68,15 @@ jobs:
         run: |
           sudo docker pull ghcr.io/armbian/build:$(cat build/VERSION  | cut -d"." -f1-2)"-$(dpkg --print-architecture)"
    
-#      - name: Import GPG key
-#        uses: crazy-max/ghaction-import-gpg@v3
-#        with:
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
 
-#          gpg-private-key: ${{ secrets.GPG_KEY1 }}
-#          passphrase: ${{ secrets.GPG_PASSPHRASE1 }}
-#          workdir: scripts
-#          git-user-signingkey: true
-#          git-commit-gpgsign: true
+          gpg-private-key: ${{ secrets.GPG_KEY1 }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE1 }}
+          workdir: scripts
+          git-user-signingkey: true
+          git-commit-gpgsign: true
    
       - name: Preparing
         run: |
@@ -108,7 +108,7 @@ jobs:
           KERNEL_ONLY="no" \
           VENDOR="Armbian_${{ matrix.node }}" \
           KERNEL_CONFIGURE="no" \
-          COMPRESS_OUTPUTIMAGE="sha,gpg,xz" \
+          COMPRESS_OUTPUTIMAGE="xz" \
           FORCE_USE_RAMDISK="yes" \
           FAST_CREATE_IMAGE="yes" \
           BOARD="odroidn2" \
@@ -124,16 +124,10 @@ jobs:
       - name: Shrink the name
         run: |
 
-          for i in build/output/images/*.xz*
-          do
-             mv "$i" $(echo "$i"| sed -r 's/(OpenHab)(.*)(.img)/\1\3/g')
-          done
-          ls -l build/output/images/
-
-      - name: Sign
-        run: |
-
- #         echo ${{ secrets.GPG_PASSPHRASE1 }} | gpg --passphrase-fd 0 --armor --detach-sign --pinentry-mode loopback --batch --yes build/output/images/*.img.xz
+          cd build/output/images 
+          mv *.xz ${{ matrix.node }}_Armbian_22.05_${{ matrix.board }}.img.xz
+          sha256sum ${{ matrix.node }}_Armbian_22.05_${{ matrix.board }}.img.xz > ${{ matrix.node }}_Armbian_22.05_${{ matrix.board }}.img.xz.sha
+          echo ${{ secrets.GPG_PASSPHRASE1 }} | gpg --passphrase-fd 0 --armor --detach-sign --pinentry-mode loopback --batch --yes *.img.xz
 
       - name: Declare vars
         id: vars
