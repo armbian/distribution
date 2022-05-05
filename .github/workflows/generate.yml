@@ -1,5 +1,4 @@
-name: Maintain Runners
-
+name: Software packs
 on:
   workflow_dispatch:
 
@@ -35,7 +34,7 @@ jobs:
           echo ::set-output name=board::$(for x in $(eval $MATRIX); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
           echo ::set-output name=matrix::$(for x in $(ls -1 distribution/images); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
           
-  Purge:
+  Build:
   
     needs: [ Prepare ]
     runs-on: [ubuntu-latest]
