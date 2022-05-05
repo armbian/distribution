@@ -106,8 +106,11 @@ jobs:
           BUILD_DESKTOP="no" \
           BUILD_MINIMAL="yes" \
           KERNEL_ONLY="no" \
-          VENDOR="OpenHab" \
+          VENDOR="Armbian_${{ matrix.node }}" \
           KERNEL_CONFIGURE="no" \
+          COMPRESS_OUTPUTIMAGE="sha,gpg,xz" \
+          FORCE_USE_RAMDISK="yes" \
+          FAST_CREATE_IMAGE="yes" \
           BOARD="odroidn2" \
           USE_MAINLINE_GOOGLE_MIRROR="yes" \
           BRANCH="current" \
@@ -120,4 +123,38 @@ jobs:
       - name: Sign
         run: |
 
+          for i in output/images/*.xz*
+          do
+             cp "$i" $(echo "$i"| sed -r 's/(OpenHab)(.*)(.img)/\1\3/g')
+          done
+
+      - name: Sign
+        run: |
+
  #         echo ${{ secrets.GPG_PASSPHRASE1 }} | gpg --passphrase-fd 0 --armor --detach-sign --pinentry-mode loopback --batch --yes output/images/*/*/*.img.xz
+
+
+      - name: Declare vars
+        id: vars
+        shell: bash
+        run: |
+          echo "::set-output name=sha_short::$(git rev-parse --short HEAD)"
+          echo "::set-output name=timenow::$(date +'%Y-%m-%d')"
+          
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.vars.outputs.sha_short }}
+          release_name: ${{ steps.vars.outputs.timenow }}-${{ steps.vars.outputs.sha_short }}
+          draft: false
+          prerelease: false
+          
+      - name: Upload to releases
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          files: output/images/*
