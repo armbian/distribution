@@ -144,3 +144,4 @@ jobs:
         with:
           name: "${{ matrix.board }} ${{ matrix.node }}"
           files: build/output/images/*
+          tag: ${{ matrix.node }}
