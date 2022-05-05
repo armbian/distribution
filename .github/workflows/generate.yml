@@ -94,7 +94,8 @@ jobs:
           OLD="ghcr.io/armbian/build:$(cat build/VERSION  | cut -d"." -f1-2)"-$(dpkg --print-architecture)
           sudo cp scripts/VERSION build/VERSION
           sudo docker tag $OLD ghcr.io/armbian/build:$(cat build/VERSION | cut -d"." -f1-2)-$(dpkg --print-architecture)
-
+          ls -l build/userpatches
+          
       - name: Build
         run: |
 
@@ -126,8 +127,8 @@ jobs:
           EXPERT="yes"
 
           cd output/images
-          mv *.xz "${APP^}"_Armbian_22.05_"${BOARD^}".img.xz
-          sha256sum "${APP^}"_"${VERSION}"_"${BOARD^}".img.xz > "${APP^}"_"${VERSION}"_"${BOARD^}".img.xz.sha
+          mv *.xz "${APP^}"_"${BOARD^}"_Armbian_"${VERSION}".img.xz
+          sha256sum "${APP^}"_"${BOARD^}"_Armbian_"${VERSION}".img.xz > "${APP^}"_"${BOARD^}"_Armbian_"${VERSION}".img.xz.sha
           echo ${{ secrets.GPG_PASSPHRASE1 }} | gpg --passphrase-fd 0 --armor --detach-sign --pinentry-mode loopback --batch --yes *.img.xz
 
       - name: Declare vars
