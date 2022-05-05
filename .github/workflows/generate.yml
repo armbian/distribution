@@ -85,7 +85,7 @@ jobs:
           sudo touch build/.ignore_changes
           
           sudo cp build/config/templates/* build/userpatches/          
-          sudo cp distribution/images/${{ matrix.node }}/customize-image.sh build/userpatches/customize-image.sh
+          sudo cp -R distribution/images/${{ matrix.node }} build/userpatches/
           sudo sed -i "s/^#DOCKER_FLAGS+=(--privileged)/DOCKER_FLAGS+=(--privileged)/" build/userpatches/config-docker.conf
           sudo sed -i "s/^VERSION=.*/VERSION=\$(cat \$SRC\/VERSION | cut -d\".\" -f1-2)\"-\$(dpkg --print-architecture)\"/" build/userpatches/config-docker.conf
           sudo sed -i "s/^BASE_IMAGE=.*/BASE_IMAGE=\"ubuntu:jammy\"/" build/userpatches/config-docker.conf
