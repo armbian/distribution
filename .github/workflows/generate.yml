@@ -30,7 +30,7 @@ jobs:
         id: list_dirs
         run: |
           FILENAME="targets.conf"
-          MATRIX="cat build/config/"${FILENAME}" | grep -v \"^$\" | grep -v \"^#\" | cut -f1 -d ' ' | pr -t -n4 | tr -s '[:blank:]' ':' | cut -d\":\" -f2,3"
+          MATRIX="cat build/config/"${FILENAME}" | grep -v \"^$\" | grep -v \"^#\" | cut -f1 -d ' ' | sort | uniq"
           echo ::set-output name=board::$(for x in $(eval $MATRIX); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
           echo ::set-output name=matrix::$(for x in $(ls -1 distribution/images); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
           
