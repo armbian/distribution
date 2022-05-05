@@ -112,6 +112,7 @@ jobs:
           FORCE_USE_RAMDISK="yes" \
           FAST_CREATE_IMAGE="yes" \
           BOARD="odroidn2" \
+          USE_TORRENT="yes" \
           USE_MAINLINE_GOOGLE_MIRROR="yes" \
           BRANCH="current" \
           SKIP_EXTERNAL_TOOLCHAINS="yes" \
