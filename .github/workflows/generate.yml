@@ -81,11 +81,10 @@ jobs:
       - name: Preparing
         run: |
 
-          mkdir -p build/userpatches
-          sudo touch build/.ignore_changes
-          
+          mkdir -p build/userpatches          
           sudo cp build/config/templates/* build/userpatches/          
-          sudo cp -R distribution/images/${{ matrix.node }} build/userpatches/
+          sudo cp -R distribution/images/${{ matrix.node }}/overlay build/userpatches/
+          sudo cp distribution/images/${{ matrix.node }}/customize-image.sh build/userpatches/
           sudo sed -i "s/^#DOCKER_FLAGS+=(--privileged)/DOCKER_FLAGS+=(--privileged)/" build/userpatches/config-docker.conf
           sudo sed -i "s/^VERSION=.*/VERSION=\$(cat \$SRC\/VERSION | cut -d\".\" -f1-2)\"-\$(dpkg --print-architecture)\"/" build/userpatches/config-docker.conf
           sudo sed -i "s/^BASE_IMAGE=.*/BASE_IMAGE=\"ubuntu:jammy\"/" build/userpatches/config-docker.conf
@@ -94,7 +93,6 @@ jobs:
           OLD="ghcr.io/armbian/build:$(cat build/VERSION  | cut -d"." -f1-2)"-$(dpkg --print-architecture)
           sudo cp scripts/VERSION build/VERSION
           sudo docker tag $OLD ghcr.io/armbian/build:$(cat build/VERSION | cut -d"." -f1-2)-$(dpkg --print-architecture)
-          ls -l build/userpatches
           
       - name: Build
         run: |
@@ -103,8 +101,8 @@ jobs:
           APP=${{ matrix.node }}
           VERSION=$(cat build/VERSION)
 
-          cd build
-         
+          cd build         
+          sudo touch .ignore_changes
           ./compile.sh docker \
           BETA="no" \
           RELEASE="focal" \
