@@ -149,4 +149,4 @@ jobs:
           draft: false
           prerelease: false
           name: test
-          repository: distribution
+          repository: igorpecovnik/distribution
