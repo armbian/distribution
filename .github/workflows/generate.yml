@@ -105,7 +105,7 @@ jobs:
           sudo touch .ignore_changes
           ./compile.sh docker \
           BETA="no" \
-          RELEASE="focal" \
+          RELEASE="jammy" \
           BUILD_DESKTOP="no" \
           BUILD_MINIMAL="yes" \
           KERNEL_ONLY="no" \
