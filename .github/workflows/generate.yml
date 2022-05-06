@@ -141,7 +141,9 @@ jobs:
 
       - name: Release
         uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          name: "${{ matrix.board }} ${{ matrix.node }}"
           files: build/output/images/*
-          tag_name: ${{ matrix.node }}
+          draft: false
+          prerelease: false
