@@ -148,3 +148,4 @@ jobs:
           files: build/output/images/*
           draft: false
           prerelease: false
+          name: test
