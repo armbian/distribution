@@ -144,6 +144,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          tag_name: v1.0
           files: build/output/images/*
           draft: false
           prerelease: false
