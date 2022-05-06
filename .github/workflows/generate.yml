@@ -144,9 +144,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: uefi-x86/nightly
+          body_path: distribution/README.md
+          tag_name: ${{ matrix.board }}/apps
           files: build/output/images/*
           draft: false
           prerelease: false
-          name: test
+          name: "Armbian turnkey applications for ${{ matrix.board }}"
           repository: igorpecovnik/distribution
