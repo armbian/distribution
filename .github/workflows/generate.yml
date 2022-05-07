@@ -100,7 +100,7 @@ jobs:
           BOARD=${{ matrix.board }}
           APP=${{ matrix.node }}
           VERSION=$(cat build/VERSION)
-          RELEASE=$(cat distribution/RELEASE)
+          RELEASE=$(cat distribution/images/${APP}/RELEASE)
 
           cd build         
           sudo touch .ignore_changes
