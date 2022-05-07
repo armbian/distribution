@@ -25,6 +25,12 @@ jobs:
         with:
           path: distribution
 
+      - name: Run changed-files with defaults on the dir1
+        id: changed-files-for-dir1
+        uses: tj-actions/changed-files@v19
+        with:
+          path: distribution/images
+
       - name: Prepare matrix
         id: list_dirs
         run: |
