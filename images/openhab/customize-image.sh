@@ -8,15 +8,15 @@ echo "Openhab"
 groupadd -g 9001 openhab
 useradd -g 9001 openhab
 usermod -aG docker openhab
-su openhab
-docker run \
-        --name openhab \
-        --net=host \
-        -v /etc/localtime:/etc/localtime:ro \
-        -v /etc/timezone:/etc/timezone:ro \
-        -v openhab_addons:/openhab/addons \
-        -v openhab_conf:/openhab/conf \
-        -v openhab_userdata:/openhab/userdata \
-        -d \
-        --restart=always \
-        openhab/openhab:3.2.0
+#su openhab
+#docker run \
+#       --name openhab \
+#       --net=host \
+#       -v /etc/localtime:/etc/localtime:ro \
+#       -v /etc/timezone:/etc/timezone:ro \
+#       -v openhab_addons:/openhab/addons \
+#       -v openhab_conf:/openhab/conf \
+#       -v openhab_userdata:/openhab/userdata \
+#       -d \
+#       --restart=always \
+#       openhab/openhab:3.2.0
