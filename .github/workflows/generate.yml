@@ -108,7 +108,8 @@ jobs:
           VERSION=$(cat build/VERSION)
           RELEASE=$(cat distribution/images/${APP}/RELEASE)
           SKIP=$(cat distribution/images/${APP}/SKIP)
-          if [[ "$SKIP" != "no" ]]; then
+
+          if [[ "$SKIP" != "yes" ]]; then
           cd build         
           sudo touch .ignore_changes
           ./compile.sh docker \
