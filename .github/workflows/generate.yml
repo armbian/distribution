@@ -1,5 +1,8 @@
 name: Software packs
 on:
+  push:
+    paths:
+      - images/**
   workflow_dispatch:
 
 jobs:
