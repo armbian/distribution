@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "Read / only rootfs"
-apt-get -y install overlayroot docker.io
+apt-get -y install overlayroot docker.io cgroup-lite
 sed -i "s/^overlayroot=.*/overlayroot=\"tmpfs\"/" /etc/overlayroot.conf
 sed -i "s/^overlayroot_cfgdisk=.*/overlayroot_cfgdisk=\"enabled\"/" /etc/overlayroot.conf
 echo "Openhab"
