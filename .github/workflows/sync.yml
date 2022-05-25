@@ -17,6 +17,7 @@ jobs:
           
           echo '<h3 align=center><a href="#build-tools"><img src="https://raw.githubusercontent.com/armbian/build/master/.github/armbian-logo.png" alt="Armbian logo" width="144"></a><br>applications distribution</h3>'  > README.md
           echo -en "<p align=right>&nbsp;</p>\n" >> README.md
+          echo -en "WIP with hardcoded values for targets\n" >> README.md
           
       - name: Add
         run: |
