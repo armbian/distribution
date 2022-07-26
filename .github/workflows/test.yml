@@ -1,0 +1,63 @@
+name: Build Images
+#
+# Generates beta, stable or RC images. You can select build runners. By default it generates all images, but you can build images only for one target
+# Images are placed at www.arnmbian.com and nighly beta also at https://github.com/armbian/build/releases/tag/latest
+#
+
+on:
+
+  workflow_run:
+    workflows: ["Build train"]
+    types:
+      - completed
+
+  workflow_dispatch:
+
+    inputs:
+
+      choice:
+        type: choice
+        description: Build targets
+        options:
+        - beta
+        - stable
+        - rc
+
+      runner:
+        type: choice
+        description: Build runners for CLI
+        options:
+        - small
+        - ubuntu-latest
+
+      sourcerepo:
+        description: Source repository
+        required: false
+        default: 'nightly'
+
+      packagesrepo:
+        type: choice
+        description: Beta packages repository
+        options:
+        - yes
+        - no
+
+      advanced:
+        description: 'Single board (grep -w tinkerboard |)'
+        required: false
+        default: ''
+        
+jobs:
+  build:
+    name: 🔨 Build distribution
+    runs-on: ubuntu-latest
+    steps: 
+      - name: "Build images"
+        id: build-images
+        uses: armbian/actions/build-images@main
+        with:
+          choice: "beta|stable|rc"
+          runner: "ubuntu-latest|small|big"
+          sourcerepo: "nightly"
+          packagesrepo: "*yes*|no"
+          advanced: "grep -w tinkerboard |"
