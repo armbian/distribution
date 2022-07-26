@@ -59,24 +59,6 @@ jobs:
     steps:
       - run: |
           echo "not empty" > changes
-      - uses: actions/checkout@v3
-        if: ${{ github.repository_owner == 'Armbian' && github.event.inputs.choice != 'stable'  && github.event.inputs.choice != 'rc' }}
-        with:
-          fetch-depth: 1
-          path: build
-          clean: false
-          ref: nightly
-
-      - name: "Get latest release version"
-        if: ${{ github.repository_owner == 'Armbian' && github.event.inputs.choice != 'stable'  && github.event.inputs.choice != 'rc' }}
-        id: list_releases
-        run: |
-          RELE=$(curl -ks https://api.github.com/repos/armbian/build/releases/latest ^| grep "browser_download_url" | grep -o -P '(?<=trunk.).*(?=_)' | cut -d"_" -f1 | sort | uniq)
-          SOUR=$(cat build/VERSION | cut -d"." -f4-4)
-          # skip if version in git is the same as at release
-          if [[ "$RELE" == "$SOUR" ]]; then
-              echo ::set-output name=changes::$(echo 'true')
-          fi
       - uses: actions/upload-artifact@v3
         with:
           path: changes
