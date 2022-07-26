@@ -63,7 +63,7 @@ jobs:
         id: build-images
         uses: ./actions/build-images
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CR_PAT }}
           choice: "beta|stable|rc"
           runner: "ubuntu-latest|small|big"
           sourcerepo: "nightly"
