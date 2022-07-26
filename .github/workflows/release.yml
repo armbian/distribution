@@ -96,7 +96,7 @@ jobs:
       of: 1
       include: 'grep uefi-x86 | ${{ github.event.inputs.advanced }}'
       exclude: ''
-      uploading: false
+      uploading: true
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
@@ -122,7 +122,7 @@ jobs:
       of: 1
       include: 'grep uefi-x86 | ${{ github.event.inputs.advanced }}'
       exclude: ''
-      uploading: false
+      uploading: true
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
@@ -148,7 +148,7 @@ jobs:
       of: 2
       include: '${{ github.event.inputs.advanced }}'
       exclude: 'grep -v uefi-x86 | '
-      uploading: false
+      uploading: true
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
@@ -175,7 +175,7 @@ jobs:
       of: 2
       include: '${{ github.event.inputs.advanced }}'
       exclude: 'grep -v uefi-x86 | '
-      uploading: false
+      uploading: true
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
@@ -200,7 +200,7 @@ jobs:
       of: 2
       include: '${{ github.event.inputs.advanced }}'
       exclude: 'grep -v uefi-x86 | '
-      uploading: false
+      uploading: true
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
@@ -225,7 +225,7 @@ jobs:
       of: 2
       include: '${{ github.event.inputs.advanced }}'
       exclude: 'grep -v uefi-x86 | '
-      uploading: false
+      uploading: true
 
     secrets:
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
