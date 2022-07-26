@@ -61,7 +61,7 @@ jobs:
           path: actions
       - name: "Build images"
         id: build-images
-        uses: actions/build-images
+        uses: ./actions/build-images
         with:
           token: ${{ secrets.GIT_HUB_TOKEN }}
           choice: "beta|stable|rc"
