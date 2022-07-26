@@ -57,7 +57,7 @@ jobs:
         with:
           repository: armbian/actions
           ref: main
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.CR_PAT }}
           path: actions
       - name: "Build images"
         id: build-images
