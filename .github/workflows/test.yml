@@ -49,12 +49,19 @@ on:
         
 jobs:
   build:
-    name: 🔨 Build distribution
+    name: Build distribution
     runs-on: ubuntu-latest
-    steps: 
+    steps:
+      - name: Checkout GitHub Action Repo
+        uses: actions/checkout@v3
+        with:
+          repository: armbian/actions
+          ref: main
+          token: ${{ secrets.GIT_HUB_TOKEN }}
+          path: actions
       - name: "Build images"
         id: build-images
-        uses: armbian/actions/build-images@main
+        uses: actions/build-images
         with:
           token: ${{ secrets.GIT_HUB_TOKEN }}
           choice: "beta|stable|rc"
