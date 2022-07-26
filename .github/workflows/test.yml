@@ -63,8 +63,8 @@ jobs:
         id: build-images
         uses: ./actions/build-images
         with:
-          choice: "beta|stable|rc"
-          runner: "ubuntu-latest|small|big"
+          choice: "beta"
+          runner: "ubuntu-latest"
           sourcerepo: "nightly"
-          packagesrepo: "*yes*|no"
+          packagesrepo: "yes"
           advanced: "grep -w tinkerboard |"
