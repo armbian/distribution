@@ -83,12 +83,12 @@ jobs:
   
       needs: [ build ]
       runs-on: ubuntu-latest
-      #if: ${{ needs.Prepare.outputs.matrix != '[]' && needs.Prepare.outputs.matrix != '' }}
+      if: ${{ needs.build.outputs.matrix != '[]' && needs.build.outputs.matrix != '' }}
       timeout-minutes: 480
       strategy:
         fail-fast: false
         matrix:
-          node: ${{fromJson(needs.Prepare.outputs.matrix)}}
+          node: ${{fromJson(needs.build.outputs.matrix)}}
       steps:
 
       - uses: igorpecovnik/freespace@main
