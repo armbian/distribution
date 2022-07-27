@@ -51,12 +51,15 @@ jobs:
   build:
     name: Build distribution
     runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{steps.list_dirs.outputs.matrix}}
     steps:
       - name: Checkout GitHub Action Repo
         uses: actions/checkout@v3
         with:
           repository: armbian/build
           ref: master
+          fetch-depth: '1'
           path: build   
       - name: Checkout GitHub Action Repo
         uses: actions/checkout@v3
@@ -68,3 +71,25 @@ jobs:
       - name: "Build images"
         id: build-images
         uses: ./actions/make-list
+
+      - name: Build desktops
+        id: list_dirs
+        run: |
+          MATRIX=$(cat boards.txt)
+          echo ::set-output name=matrix::$(for x in $(echo "${MATRIX}"); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
+          
+  clean:
+  
+      needs: [ build ]
+      runs-on: ubuntu-latest
+      if: ${{ needs.Prepare.outputs.matrix != '[]' && needs.Prepare.outputs.matrix != '' }}
+      timeout-minutes: 480
+      strategy:
+        fail-fast: false
+        matrix:
+          node: ${{fromJson(needs.Prepare.outputs.matrix)}}
+      steps:
+
+      - uses: igorpecovnik/freespace@main
+      - run: |
+          echo "Hello "
