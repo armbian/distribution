@@ -75,6 +75,7 @@ jobs:
       - name: Build desktops
         id: list_dirs
         run: |
+          cat boards.txt
           MATRIX=$(cat boards.txt)
           echo ::set-output name=matrix::$(for x in $(echo "${MATRIX}"); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
           
@@ -82,7 +83,7 @@ jobs:
   
       needs: [ build ]
       runs-on: ubuntu-latest
-      if: ${{ needs.Prepare.outputs.matrix != '[]' && needs.Prepare.outputs.matrix != '' }}
+      #if: ${{ needs.Prepare.outputs.matrix != '[]' && needs.Prepare.outputs.matrix != '' }}
       timeout-minutes: 480
       strategy:
         fail-fast: false
