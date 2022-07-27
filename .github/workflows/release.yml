@@ -182,6 +182,7 @@ jobs:
       include: '${{ github.event.inputs.advanced }}'
       exclude: 'grep -v uefi-x86 | '
       uploading: true
+      type: csc
 
     secrets:
       CR_PAT: ${{ secrets.CR_PAT }} 
