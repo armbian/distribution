@@ -75,8 +75,7 @@ jobs:
       - name: Build desktops
         id: list_dirs
         run: |
-          cat boards.txt
-          MATRIX=$(cat boards.txt)
+          MATRIX=$(uniq boards.txt)
           echo ::set-output name=matrix::$(for x in $(echo "${MATRIX}"); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
           
   clean:
@@ -94,3 +93,10 @@ jobs:
       - uses: igorpecovnik/freespace@main
       - run: |
           echo "Hello "
+          
+     - uses: dev-drprasad/delete-older-releases@v0.2.0
+       with:
+       keep_latest: 0
+       delete_tag_pattern: ${{ matrix.node }}
+     env:
+       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
