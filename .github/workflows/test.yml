@@ -61,10 +61,4 @@ jobs:
           path: actions
       - name: "Build images"
         id: build-images
-        uses: ./actions/build-images
-        with:
-          choice: "beta"
-          runner: "ubuntu-latest"
-          sourcerepo: "nightly"
-          packagesrepo: "yes"
-          advanced: "grep -w tinkerboard |"
+        uses: ./actions/make-list
