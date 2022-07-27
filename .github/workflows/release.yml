@@ -97,6 +97,7 @@ jobs:
       include: 'grep uefi-x86 | ${{ github.event.inputs.advanced }}'
       exclude: ''
       uploading: true
+      type: csc
 
     secrets:
       CR_PAT: ${{ secrets.CR_PAT }}
@@ -124,6 +125,7 @@ jobs:
       include: 'grep uefi-x86 | ${{ github.event.inputs.advanced }}'
       exclude: ''
       uploading: true
+      type: csc
 
     secrets:
       CR_PAT: ${{ secrets.CR_PAT }}
@@ -151,6 +153,7 @@ jobs:
       include: '${{ github.event.inputs.advanced }}'
       exclude: 'grep -v uefi-x86 | '
       uploading: true
+      type: csc
 
     secrets:
       CR_PAT: ${{ secrets.CR_PAT }}
@@ -205,7 +208,8 @@ jobs:
       include: '${{ github.event.inputs.advanced }}'
       exclude: 'grep -v uefi-x86 | '
       uploading: true
-
+      type: csc
+      
     secrets:
       CR_PAT: ${{ secrets.CR_PAT }}
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
@@ -231,6 +235,7 @@ jobs:
       include: '${{ github.event.inputs.advanced }}'
       exclude: 'grep -v uefi-x86 | '
       uploading: true
+      type: csc
 
     secrets:
       CR_PAT: ${{ secrets.CR_PAT }}
