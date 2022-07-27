@@ -99,6 +99,7 @@ jobs:
       uploading: true
 
     secrets:
+      CR_PAT: ${{ secrets.CR_PAT }}
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
       GPG_KEY2: ${{ secrets.GPG_KEY2 }}
@@ -125,6 +126,7 @@ jobs:
       uploading: true
 
     secrets:
+      CR_PAT: ${{ secrets.CR_PAT }}
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
       GPG_KEY2: ${{ secrets.GPG_KEY2 }}
@@ -151,6 +153,7 @@ jobs:
       uploading: true
 
     secrets:
+      CR_PAT: ${{ secrets.CR_PAT }}
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
       GPG_KEY2: ${{ secrets.GPG_KEY2 }}
@@ -178,6 +181,7 @@ jobs:
       uploading: true
 
     secrets:
+      CR_PAT: ${{ secrets.CR_PAT }} 
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
       GPG_KEY2: ${{ secrets.GPG_KEY2 }}
@@ -203,6 +207,7 @@ jobs:
       uploading: true
 
     secrets:
+      CR_PAT: ${{ secrets.CR_PAT }}
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
       GPG_KEY2: ${{ secrets.GPG_KEY2 }}
@@ -228,6 +233,7 @@ jobs:
       uploading: true
 
     secrets:
+      CR_PAT: ${{ secrets.CR_PAT }}
       GPG_KEY1: ${{ secrets.GPG_KEY1 }}
       GPG_PASSPHRASE1: ${{ secrets.GPG_PASSPHRASE1 }}
       GPG_KEY2: ${{ secrets.GPG_KEY2 }}
