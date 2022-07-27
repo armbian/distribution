@@ -71,6 +71,8 @@ jobs:
       - name: "Build images"
         id: build-images
         uses: ./actions/make-list
+        with:
+          type: tvb
 
       - name: Build desktops
         id: list_dirs
