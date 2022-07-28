@@ -94,6 +94,13 @@ jobs:
       - run: |
           echo "Hello "
           
+      - uses: igorpecovnik/delete-tag-and-release@master
+        with:
+          delete_release: true # default: false
+          tag_name: ${{ matrix.node }} # tag name to delete
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
+          
       - uses: dev-drprasad/delete-older-releases@v0.2.0
         with:
           keep_latest: 4
