@@ -20,3 +20,9 @@ jobs:
 
       - name: Make build list
         uses: armbian/actions/make-json@main
+
+      - uses: actions/upload-artifact@v3
+        with:
+          path: assets.json
+          name: assets
+          if-no-files-found: ignore
