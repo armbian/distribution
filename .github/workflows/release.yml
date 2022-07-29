@@ -67,7 +67,7 @@ jobs:
 
   clean:
 
-    name: Purge tags
+    name: Purge older releases
     needs: [ fake ]
     runs-on: [ubuntu-latest]
     steps:
