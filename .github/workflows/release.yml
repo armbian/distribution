@@ -45,9 +45,10 @@ jobs:
     name: "Cancel currently active"
     runs-on: ubuntu-latest
     steps:
-      - uses: n1hility/cancel-previous-runs@v2
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.10.0
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          access_token: ${{ secrets.GITHUB_TOKEN }}
 
   fake:
     if: ${{ github.repository_owner == 'Armbian' }}
