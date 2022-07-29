@@ -1,4 +1,4 @@
-name: Build Images
+name: Make index
 #
 # Generates beta, stable or RC images. You can select build runners. By default it generates all images, but you can build images only for one target
 # Images are placed at www.arnmbian.com and nighly beta also at https://github.com/armbian/build/releases/tag/latest
