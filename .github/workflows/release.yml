@@ -72,12 +72,10 @@ jobs:
     runs-on: [ubuntu-latest]
     steps:
       - name: Purge
-        if: github.event.inputs.purge == 'true'
         uses: dev-drprasad/delete-older-releases@v0.2.0
         with:
-          repo: armbian/distribution
-          delete_tags: true
-          keep_latest: 0
+          keep_latest: 1
+          delete_tag_pattern: trunk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
