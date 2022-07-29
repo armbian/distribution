@@ -54,30 +54,24 @@ jobs:
     outputs:
       matrix: ${{steps.list_dirs.outputs.matrix}}
     steps:
-      - name: Checkout GitHub Action Repo
-        uses: actions/checkout@v3
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Make build list
+        uses: armbian/actions/make-list@main
         with:
-          repository: armbian/build
-          ref: master
-          fetch-depth: '1'
-          path: build   
-      - name: Checkout GitHub Action Repo
-        uses: actions/checkout@v3
-        with:
-          repository: armbian/actions
-          ref: main
-          token: ${{ secrets.CR_PAT }}
-          path: actions
-      - name: "Build images"
-        id: build-images
-        uses: ./actions/make-list
+          type: ${{ inputs.boardtype }}
 
       - name: Build desktops
         id: list_dirs
         run: |
           MATRIX=$(uniq boards.txt)
           echo ::set-output name=matrix::$(for x in $(echo "${MATRIX}"); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
-          
+
+      - name: Make build list
+        uses: armbian/actions/make-json@main
+
   clean:
   
       needs: [ build ]
@@ -90,9 +84,8 @@ jobs:
           node: ${{fromJson(needs.build.outputs.matrix)}}
       steps:
 
-      - uses: igorpecovnik/freespace@main
-      - run: |
-          echo "Hello "
+      - name: Runner prepare
+        uses: armbian/actions/runner-prepare@main
           
       - uses: igorpecovnik/delete-tag-and-release@master
         with:
