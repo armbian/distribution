@@ -1,7 +1,6 @@
 name: Make index
 #
-# Generates beta, stable or RC images. You can select build runners. By default it generates all images, but you can build images only for one target
-# Images are placed at www.arnmbian.com and nighly beta also at https://github.com/armbian/build/releases/tag/latest
+# Generates index
 #
 
 on:
@@ -10,100 +9,14 @@ on:
     workflows: ["Build train"]
     types:
       - completed
-
-  workflow_dispatch:
-
-    inputs:
-
-      choice:
-        type: choice
-        description: Build targets
-        options:
-        - beta
-        - stable
-        - rc
-
-      runner:
-        type: choice
-        description: Build runners for CLI
-        options:
-        - small
-        - ubuntu-latest
-
-      sourcerepo:
-        description: Source repository
-        required: false
-        default: 'nightly'
-
-      packagesrepo:
-        type: choice
-        description: Beta packages repository
-        options:
-        - yes
-        - no
-
-      advanced:
-        description: 'Single board (grep -w tinkerboard |)'
-        required: false
-        default: ''
         
 jobs:
   build:
-    name: Build distribution
     runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{steps.list_dirs.outputs.matrix}}
     steps:
 
       - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Make build list
-        uses: armbian/actions/make-list@main
-        with:
-          type: ${{ inputs.boardtype }}
-
-      - name: Build desktops
-        id: list_dirs
-        run: |
-          MATRIX=$(uniq boards.txt)
-          echo ::set-output name=matrix::$(for x in $(echo "${MATRIX}"); do echo $x; done|jq -cnR '[inputs | select(length>0)]' | jq)
+        uses: actions/checkout@v3
 
       - name: Make build list
         uses: armbian/actions/make-json@main
-
-  clean:
-  
-      needs: [ build ]
-      runs-on: ubuntu-latest
-      if: ${{ needs.build.outputs.matrix != '[]' && needs.build.outputs.matrix != '' }}
-      timeout-minutes: 480
-      strategy:
-        fail-fast: false
-        matrix:
-          node: ${{fromJson(needs.build.outputs.matrix)}}
-      steps:
-
-      - name: Runner prepare
-        uses: armbian/actions/runner-prepare@main
-          
-      - uses: igorpecovnik/delete-tag-and-release@master
-        with:
-          delete_release: true # default: false
-          tag_name: "${{ matrix.node }}/nightly" # tag name to delete
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
-      
-      - uses: igorpecovnik/delete-tag-and-release@master
-        with:
-          delete_release: true # default: false
-          tag_name: "${{ matrix.node }}/archive" # tag name to delete
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}        
-
-      - uses: dev-drprasad/delete-older-releases@v0.2.0
-        with:
-          keep_latest: 4
-          delete_tag_pattern: ${{ matrix.node }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
