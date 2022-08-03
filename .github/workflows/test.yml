@@ -26,7 +26,8 @@ jobs:
         
           sudo npm install --location=global json || true
           truncate README.me --size=0 || true
-          echo "<table>" >> README.tmp
+          echo "| Image | Branch | Variant | Kernel |" >> README.tmp
+          echo "| --- | --- | --- | --- |" >> README.tmp
           gh release view $(gh release list | awk '{print $1}' | head -1) --json assets 2>/dev/null | python3 -mjson.tool | sed  '1,2d;$d' | json -ga name url -d, | sort | (
           while read -r line; do
            name=$(echo $line | cut -d"," -f1)
@@ -36,11 +37,11 @@ jobs:
              out_branch=$(echo $name | cut -d"_" -f4)
              out_kernel=$(echo $name | cut -d"_" -f6-7 | cut -d"." -f1-3 | cut -d"_" -f1)
              out_desktop=$(echo $name | cut -d"_" -f7)
-             echo -ne "<tr><td><a href=$url>$out_name</a></td><td>$out_branch</td><td>$out_desktop</td><td>$out_kernel</td></tr>\n" >> README.tmp
+             out_desktop=${out_desktop:-cli}
+             echo -ne "| [$out_name]($url) | $out_branch | $out_desktop | $out_kernel |\n" >> README.tmp
            fi
           done
           )
-          echo "</table>" >> README.tmp
 
       - uses: actions/upload-artifact@v3
         with:
