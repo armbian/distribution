@@ -161,4 +161,3 @@ jobs:
           draft: false
           prerelease: false
           name: "Armbian turnkey applications for ${{ matrix.board }}"
-          repository: igorpecovnik/distribution
