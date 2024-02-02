@@ -7,3 +7,4 @@
 </p>
 
 - 12.1.2024 [Home Assistant](https://www.home-assistant.io/) supervised appliance
+- 2.2.2024 [Kali Linux](https://www.kali.org/) (Debian Trixie with pre-enabled Kali repository)
