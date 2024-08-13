@@ -11,5 +11,6 @@
 - [Armbian Home Assistant](https://www.home-assistant.io/) - home automation
 - [Armbian OpenHab](https://www.openhab.org/) - home automation
 - [Armbian Security](https://www.kali.org/) (Armbian Trixie with pre-enabled Kali repository)
+- [Armbian OMV](https://www.openmediavault.org/) - network attached storage (NAS)
 
 Sources: [extensions for Armbian build framework](https://github.com/armbian/os/tree/main/userpatches/extensions)
