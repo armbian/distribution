@@ -7,11 +7,11 @@
 
 ## Purpose of This Repository
 
-This repository provides **ready-to-use Armbian-based OS images** with selected open-source applications preinstalled and preconfigured. These images, known as **Armbian Appliances**, are designed to deliver out-of-the-box functionality while retaining the flexibility and performance of the Armbian base system.
+This repository hosts **ready-to-use Armbian-based OS images** — known as **Armbian Appliances** — with selected open-source applications preinstalled and preconfigured. It also serves as the distribution point for those images via GitHub Releases.
 
 ## What Are Armbian Appliances?
 
-Each appliance image transforms a supported single board computer (SBC) into a dedicated solution, such as:
+Each appliance image turns a supported single board computer (SBC) into a dedicated solution, such as:
 
 - **Home automation hubs** (e.g. Home Assistant, openHAB)
 - **Network-attached storage (NAS)** servers (e.g. OpenMediaVault)
@@ -28,13 +28,20 @@ Finished appliance images are published on [armbian.com/download](https://www.ar
 
 ## Releases
 
-Appliance images built from this repository are distributed through GitHub Releases attached to this repo. To keep the download area manageable, only the most recent releases are retained — older full releases and pre-releases are pruned automatically on a daily schedule.
+Appliance images built from this repository are distributed as assets attached to this repo's GitHub Releases. To keep the download area manageable, only the most recent releases are kept — older full releases and pre-releases are pruned automatically on a daily schedule, using `gh api` and `jq` to sort by `published_at` and remove all but the newest few of each kind. The cleanup job only runs in the `armbian` organization, so forks are never affected.
 
 ## Continuous Integration
 
-Automation for this repository runs on GitHub Actions. For a live overview of workflow runs and their status, see:
+Automation for this repository runs on GitHub Actions (workflows defined in YAML under `.github/workflows/`, with `run:` steps in Bash). For a live overview of workflow runs and their status, see:
 
 - [Armbian CI overview for `distribution`](https://actions.armbian.com/?repo=distribution)
+
+## Repository Layout
+
+```
+.github/workflows/    # GitHub Actions workflow definitions
+README.md
+```
 
 ## Related Resources
 
