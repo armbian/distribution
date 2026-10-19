@@ -7,11 +7,11 @@
 
 ## Purpose of This Repository
 
-This repository provides **ready-to-use Armbian-based OS images** with selected open-source applications preinstalled and preconfigured. These images, known as **Armbian Appliances**, are designed to deliver out-of-the-box functionality while retaining the flexibility and performance of the Armbian base system.
+This repository hosts **ready-to-use Armbian-based OS images** — the **Armbian Appliances** — which bundle selected open-source applications preinstalled and preconfigured on top of the standard Armbian base system. The images themselves are distributed as GitHub Releases attached to this repository.
 
 ## What Are Armbian Appliances?
 
-Each appliance image transforms a supported single board computer (SBC) into a dedicated solution, such as:
+Each appliance image turns a supported single board computer (SBC) into a dedicated solution, such as:
 
 - **Home automation hubs** (e.g. Home Assistant, openHAB)
 - **Network-attached storage (NAS)** servers (e.g. OpenMediaVault)
@@ -28,11 +28,26 @@ Finished appliance images are published on [armbian.com/download](https://www.ar
 
 ## Releases
 
-Appliance images built from this repository are distributed through GitHub Releases attached to this repo. To keep the download area manageable, only the most recent releases are retained — older full releases and pre-releases are pruned automatically on a daily schedule.
+Appliance images are distributed via GitHub Releases attached to this repo. To keep the download area manageable, only the most recent **full releases** and **pre-releases** are retained; older ones are pruned automatically on a daily schedule.
 
-## Continuous Integration
+The cleanup logic sorts releases by `published_at` (rather than `created_at`) so that bulk-migrated releases are ordered by real version recency, and it keeps the newest few of each kind.
 
-Automation for this repository runs on GitHub Actions. For a live overview of workflow runs and their status, see:
+## Repository Layout
+
+```
+.
+├── .github/
+│   └── workflows/        # GitHub Actions automation (YAML)
+└── README.md
+```
+
+The actual appliance image artifacts live on the Releases page, not in the Git tree.
+
+## Automation
+
+Housekeeping for this repository is implemented as a GitHub Actions workflow (YAML) that uses the GitHub CLI (`gh`) and `jq` to query and prune releases via the GitHub REST API. It runs on a daily schedule and can also be triggered manually, and is guarded to only act inside the `armbian` organization so forks are never affected.
+
+For a live overview of workflow runs and their status, see:
 
 - [Armbian CI overview for `distribution`](https://actions.armbian.com/?repo=distribution)
 
